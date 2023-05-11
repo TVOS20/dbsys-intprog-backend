@@ -7,8 +7,7 @@ const authorize = require("_middleware/authorize");
 
 // routes
 
-
-router.post("/create", createSchema, create);
+router.post("/create", authorize, createSchema, create);
 router.get("/", authorize, getAll);
 router.get("/:id", authorize, getById);
 router.put("/:id", authorize, updateSchema, update);
@@ -19,7 +18,6 @@ module.exports = router;
 // route functions
 
 function getAll(req, res, next) {
-  console.log('test')
   officeService
     .getAll()
     .then((offices) => res.json(offices))
@@ -36,21 +34,21 @@ function getById(req, res, next) {
 function create(req, res, next) {
   officeService
     .create(req.body)
-    .then(() => res.json({ message: "Employee created" }))
+    .then(() => res.json({ message: "Office created" }))
     .catch(next);
 }
 
 function update(req, res, next) {
   officeService
     .update(req.params.id, req.body)
-    .then(() => res.json({ message: "Employee updated" }))
+    .then(() => res.json({ message: "Office updated" }))
     .catch(next);
 }
 
 function _delete(req, res, next) {
   officeService
     .delete(req.params.id)
-    .then(() => res.json({ message: "Employee deleted" }))
+    .then(() => res.json({ message: "Office deleted" }))
     .catch(next);
 }
 
@@ -67,7 +65,6 @@ function createSchema(req, res, next) {
     country: Joi.string().required(),
     postalCode: Joi.string().required(),
     territory: Joi.string().required(),
-
   });
   validateRequest(req, next, schema);
 }
@@ -83,7 +80,6 @@ function updateSchema(req, res, next) {
     country: Joi.string().empty(""),
     postalCode: Joi.string().empty(""),
     territory: Joi.string().empty(""),
-
-  })
+  });
   validateRequest(req, next, schema);
 }
