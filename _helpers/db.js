@@ -23,6 +23,7 @@ async function initialize() {
   });
 
   // init models and add them to the exported db object
+  db.User = require("../users/user.model")(sequelize);
   db.Employee = require("../employees/employee.model")(sequelize);
   db.Office = require("../offices/office.model")(sequelize);
 
