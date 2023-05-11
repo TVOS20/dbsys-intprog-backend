@@ -1,5 +1,4 @@
-﻿const bcrypt = require("bcryptjs");
-const db = require("_helpers/db");
+﻿const db = require("_helpers/db");
 
 module.exports = {
   getAll,
@@ -10,8 +9,7 @@ module.exports = {
 };
 
 async function getAll() {
-  console.log('execute')
-  return await db.Office.findAll();
+  return await db.Product.findAll();
 }
 
 async function getById(id) {
@@ -20,40 +18,37 @@ async function getById(id) {
 
 async function create(params) {
   // validate
-  if (await db.Office.findOne({ where: { email: params.email } })) {
-    throw 'Email "' + params.email + '" is already registered';
+  if (
+    await db.Product.findOne({ where: { productCode: params.productCode } })
+  ) {
+    throw 'Product "' + params.productCode + '" is already created';
   }
 
-  const office = new db.Office(params);
+  const product = new db.Product(params);
 
-  // hash password
-  office.passwordHash = await bcrypt.hash(params.password, 10);
-
-  // save office
-  await office.save();
+  // save Product
+  await product.save();
 }
 
 async function update(id, params) {
-  const office = await getUser(id);
+  const product = await getUser(id);
 
-  // copy params to office and save
-  Object.assign(office, params);
-  await office.save();
+  // copy params to Product and save
+  Object.assign(product, params);
+  await product.save();
 
-  return office.get();
+  return product.get();
 }
 
 async function _delete(id) {
-  const office = await getUser(id);
-  await office.destroy();
+  const product = await getUser(id);
+  await product.destroy();
 }
 
 // helper functions
 
 async function getUser(id) {
-  const office = await db.Office.findByPk(id);
-  if (!office) throw "Office not found";
-  return office;
+  const product = await db.Product.findByPk(id);
+  if (!product) throw "Product not found";
+  return product;
 }
-
-

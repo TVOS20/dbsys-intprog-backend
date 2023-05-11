@@ -14,6 +14,7 @@ app.use(cookieParser());
 app.use("/users", require("./users/user.controller"));
 app.use("/employees", require("./employees/employee.controller"));
 app.use("/offices", require("./offices/office.controller"));
+app.use("/products", require("./products/product.controller"));
 
 // global error handler
 app.use(errorHandler);
