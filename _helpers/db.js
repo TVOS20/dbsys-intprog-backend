@@ -27,6 +27,10 @@ async function initialize() {
   db.Employee = require("../employees/employee.model")(sequelize);
   db.Office = require("../offices/office.model")(sequelize);
   db.Product = require("../products/product.model")(sequelize);
+  db.Customer = require("../customers/customer.model")(sequelize);
+
+  db.Office.hasOne(db.Employee);
+  db.Employee.belongsTo(db.Office, { foreignKey: "officeCode" });
 
   // sync all models with database
   await sequelize.sync();
