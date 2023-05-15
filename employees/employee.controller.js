@@ -28,7 +28,7 @@ function getAll(req, res, next) {
 function getById(req, res, next) {
   employeeService
     .getById(req.params.id)
-    .then((user) => res.json(user))
+    .then((employee) => res.json(employee))
     .catch(next);
 }
 
@@ -57,28 +57,38 @@ function _delete(req, res, next) {
 
 function createSchema(req, res, next) {
   const schema = Joi.object({
-    employeeNumber: Joi.number().required(),
-    lastName: Joi.string().required(),
-    firstName: Joi.string().required(),
-    extension: Joi.string().required(),
-    email: Joi.string().email().required(),
-    officeCode: Joi.string().required(),
-    reportsTo: Joi.number().allow(null).required(),
-    jobTitle: Joi.string().required(),
+    customerNumber: Joi.string(),
+    customerName: Joi.string().required(),
+    contactLastName: Joi.string().required(),
+    contactFirstName: Joi.string().required(),
+    phone: Joi.string().required(),
+    addressLine1: Joi.string().required(),
+    addressLine2: Joi.string().allow(null).required(),
+    city: Joi.string().required(),
+    state: Joi.string().allow(null).required(),
+    postalCode: Joi.string().allow(null).required(),
+    country: Joi.string().required(),
+    salesRepEmployeeNumber: Joi.string().allow(null).required(),
+    creditLimit: Joi.string().allow(null).required(),
   });
   validateRequest(req, next, schema);
 }
 
 function updateSchema(req, res, next) {
   const schema = Joi.object({
-    employeeNumber: Joi.number().empty(""),
-    lastName: Joi.string().empty(""),
-    firstName: Joi.string().empty(""),
-    extension: Joi.string().empty(""),
-    email: Joi.string().email().empty(""),
-    officeCode: Joi.string().empty(""),
-    reportsTo: Joi.number().allow(null).empty(""),
-    jobTitle: Joi.string().empty(""),
+    customerNumber: Joi.string().empty(""),
+    customerName: Joi.string().empty(""),
+    contactLastName: Joi.string().empty(""),
+    contactFirstName: Joi.string().empty(""),
+    phone: Joi.string().empty(""),
+    addressLine1: Joi.string().empty(""),
+    addressLine2: Joi.string().allow(null).empty(""),
+    city: Joi.string().empty(""),
+    state: Joi.string().allow(null).empty(""),
+    postalCode: Joi.string().allow(null).empty(""),
+    country: Joi.string().empty(""),
+    salesRepEmployeeNumber: Joi.string().allow(null).empty(""),
+    creditLimit: Joi.string().allow(null).empty(""),
   });
   validateRequest(req, next, schema);
 }
