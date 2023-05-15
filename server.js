@@ -15,6 +15,7 @@ app.use("/users", require("./users/user.controller"));
 app.use("/employees", require("./employees/employee.controller"));
 app.use("/offices", require("./offices/office.controller"));
 app.use("/products", require("./products/product.controller"));
+app.use("/productlines", require("./productlines/productline.controller"));
 app.use("/customers", require("./customers/customer.controller"));
 
 // global error handler
