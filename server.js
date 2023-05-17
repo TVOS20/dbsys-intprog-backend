@@ -11,7 +11,6 @@ app.use(cors());
 app.use(cookieParser());
 
 // api routes
-app.use("/users", require("./users/user.controller"));
 app.use("/employees", require("./employees/employee.controller"));
 app.use("/offices", require("./offices/office.controller"));
 app.use("/products", require("./products/product.controller"));

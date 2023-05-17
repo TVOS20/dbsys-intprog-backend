@@ -22,15 +22,14 @@ async function initialize() {
     dialect: "mysql",
   });
 
+  db.sequelize = sequelize;
   // init models and add them to the exported db object
-  db.User = require("../users/user.model")(sequelize);
   db.Employee = require("../employees/employee.model")(sequelize);
   db.Office = require("../offices/office.model")(sequelize);
   db.Product = require("../products/product.model")(sequelize);
   db.ProductLine = require("../productlines/productline.model")(sequelize);
   db.Customer = require("../customers/customer.model")(sequelize);
 
-  db.Office.hasOne(db.Employee);
   db.Employee.belongsTo(db.Office, { foreignKey: "officeCode" });
 
   // sync all models with database

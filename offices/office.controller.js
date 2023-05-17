@@ -3,15 +3,14 @@ const router = express.Router();
 const Joi = require("joi");
 const validateRequest = require("_middleware/validate-request");
 const officeService = require("./office.service");
-const authorize = require("_middleware/authorize");
 
 // routes
 
-router.post("/create", authorize, createSchema, create);
-router.get("/", authorize, getAll);
-router.get("/:id", authorize, getById);
-router.put("/:id", authorize, updateSchema, update);
-router.delete("/:id", authorize, _delete);
+router.post("/create", createSchema, create);
+router.get("/", getAll);
+router.get("/:id", getById);
+router.put("/:id", updateSchema, update);
+router.delete("/:id", _delete);
 
 module.exports = router;
 
