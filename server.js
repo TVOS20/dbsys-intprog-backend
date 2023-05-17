@@ -16,6 +16,7 @@ app.use("/offices", require("./offices/office.controller"));
 app.use("/products", require("./products/product.controller"));
 app.use("/productlines", require("./productlines/productline.controller"));
 app.use("/customers", require("./customers/customer.controller"));
+app.use("/inventories", require("./inventories/inventory.controller"));
 
 // global error handler
 app.use(errorHandler);
