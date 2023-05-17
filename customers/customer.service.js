@@ -9,7 +9,6 @@ module.exports = {
 };
 
 async function getAll() {
-  console.log("execute");
   return await db.Customer.findAll();
 }
 

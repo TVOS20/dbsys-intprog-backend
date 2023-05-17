@@ -10,7 +10,6 @@ module.exports = {
 };
 
 async function getAll() {
-  console.log('execute')
   return await db.Office.findAll();
 }
 
@@ -55,5 +54,3 @@ async function getUser(id) {
   if (!office) throw "Office not found";
   return office;
 }
-
-
