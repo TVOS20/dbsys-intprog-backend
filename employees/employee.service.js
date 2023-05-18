@@ -9,7 +9,10 @@ module.exports = {
 };
 
 async function getAll() {
-  return await db.Employee.findAll();
+  return await db.Employee.findAll({
+    where: { isDeleted: 0 },
+    order: ["jobTitle"],
+  });
 }
 
 async function getById(id) {
@@ -23,7 +26,7 @@ async function create(params) {
   }
 
   const employee = new db.Employee(params);
-
+  employee.isDeleted = 0;
   // save employee
   await employee.save();
 }
@@ -49,7 +52,8 @@ async function update(id, params) {
 
 async function _delete(id) {
   const employee = await getEmployee(id);
-  await employee.destroy();
+  employee.isDeleted = 1;
+  await employee.save();
 }
 
 // helper functions
