@@ -1,4 +1,5 @@
 ﻿const db = require("_helpers/db");
+const { QueryTypes } = require("sequelize");
 
 module.exports = {
   getAll,
@@ -9,11 +10,16 @@ module.exports = {
 };
 
 async function getAll() {
-  return await db.Product.findAll();
+  return await db.sequelize.query(
+    `SELECT p.*, pl.textDescription FROM products p JOIN productlines pl ON p.productLine = pl.productLine`,
+    {
+      type: QueryTypes.SELECT,
+    }
+  );
 }
 
 async function getById(id) {
-  return await getUser(id);
+  return await getProduct(id);
 }
 
 async function create(params) {
@@ -31,7 +37,7 @@ async function create(params) {
 }
 
 async function update(id, params) {
-  const product = await getUser(id);
+  const product = await getProduct(id);
 
   // copy params to Product and save
   Object.assign(product, params);
@@ -41,13 +47,13 @@ async function update(id, params) {
 }
 
 async function _delete(id) {
-  const product = await getUser(id);
+  const product = await getProduct(id);
   await product.destroy();
 }
 
 // helper functions
 
-async function getUser(id) {
+async function getProduct(id) {
   const product = await db.Product.findByPk(id);
   if (!product) throw "Product not found";
   return product;
